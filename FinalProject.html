@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <title>Final Project</title>
+    <link rel="stylesheet" href="FinalProject.css">
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" id="nav-client" class="active" onclick="switchView('client')">Customer</a></li>
+            <li><a href="#" id="nav-admin" onclick="switchView('admin')">Admin Dashboard</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+
+        <section id="view-client" class="view-section active">
+            <h2>Sơ Đồ Phòng Khách Sạn & Đặt Phòng</h2>
+
+            <div class="filter-panel">
+                <div class="form-group">
+                    <label for="search-id">Mã phòng:</label>
+                    <input type="text" id="search-id" placeholder="VD: 101">
+                </div>
+                <div class="form-group">
+                    <label for="search-type">Loại phòng:</label>
+                    <select id="search-type">
+                        <option value="">Tất cả</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Deluxe">Deluxe</option>
+                        <option value="Suite">Suite</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="search-floor">Tầng:</label>
+                    <select id="search-floor">
+                        <option value="">Tất cả</option>
+                        <option value="1">Tầng 1</option>
+                        <option value="2">Tầng 2</option>
+                        <option value="3">Tầng 3</option>
+                    </select>
+                </div>
+                <div class="form-group border-left">
+                    <label for="group-quantity">Tìm phòng nhóm đông:</label>
+                    <input type="number" id="group-quantity" min="1" placeholder="Số lượng phòng">
+                    <button type="button" onclick="handleSuggestGroup()">Gợi ý liền kề</button>
+                </div>
+                <button type="button" onclick="handleSearch()">Tìm kiếm</button>
+            </div>
+
+            <div class="hotel-map" id="hotel-map-container"></div>
+        </section>
+
+        <section id="view-admin" class="view-section">
+    <div class="admin-dashboard" style="display: flex; flex-direction: column; gap: 20px;">
+
+        <aside class="admin-sidebar" style="width: 100%; box-sizing: border-box;">
+            <h3>Cấu hình hệ thống</h3>
+            <p>Quản lý và theo dõi hóa đơn khách đặt phòng thời gian thực.</p>
+            <div class="form-group" style="max-width: 300px;">
+                <label>Trạng thái khách sạn</label>
+                <input type="text" value="Đang hoạt động" disabled>
+            </div>
+        </aside>
+
+        <main class="admin-content" style="width: 100%;">
+            <h2>Lịch Sử Đặt Phòng (Hóa Đơn)</h2>
+
+            <div class="table-responsive">
+                <table id="booking-table">
+                    <thead>
+                        <tr>
+                            <th>Mã Hóa Đơn</th>
+                            <th onclick="toggleSortByPrice()" style="cursor: pointer; color: #3498db;">Mã Phòng (Bấm để xếp giá ⇅)</th>
+                            <th>Mã Khách Hàng</th>
+                            <th>Ngày Đặt</th>
+                        </tr>
+                    </thead>
+                    <tbody id="booking-history-tbody">
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="chart-container" style="margin-top: 40px; text-align: left;">
+                <h4 style="margin-bottom: 15px; font-size: 16px; color: #333;">📊 Thống Kê Doanh Thu Theo Loại Phòng</h4>
+                <canvas id="revenueChart" width="600" height="250" style="border: 1px solid #eef2f5; background: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"></canvas>
+            </div>
+        </main>
+
+    </div>
+</section>
+    </div>
+
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <h3>Thông Tin Khách Hàng Đặt Phòng</h3>
+
+            <form id="form-customer-booking" onsubmit="executeBooking(event)">
+                <input type="hidden" id="modal-room-id">
+
+                <div class="form-group">
+                    <label for="cust-id">Mã khách hàng:</label>
+                    <input type="text" id="cust-id" required placeholder="VD: KH001">
+                </div>
+                <div class="form-group">
+                    <label for="cust-name">Tên khách hàng:</label>
+                    <input type="text" id="cust-name" required placeholder="Nguyễn Văn A">
+                </div>
+                <div class="form-group">
+                    <label for="cust-phone">Số điện thoại:</label>
+                    <input type="text" id="cust-phone" required placeholder="0912345678">
+                </div>
+                
+                <div id="form-error-msg" style="color: red; margin: 10px 0; font-weight: bold;"></div>
+                
+                <button type="submit">Xác Nhận Đặt Phòng</button>
+            </form>
+        </div>
+    </div>
+    <script src="FinalProject.js"></script>
+</body>
+
+</html>

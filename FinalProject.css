@@ -1,0 +1,297 @@
+/* ==========================================================================
+   1. CẤU HÌNH CHUNG & ĐỊNH DẠNG CƠ BẢN
+   ========================================================================== */
+* {
+    box-sizing: border-box; /* Giúp tính toán kích thước viền không bị tràn màn hình */
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 15px;
+}
+
+h2, h3 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+}
+
+/* Ẩn/Hiện các View khi bấm chuyển Tab */
+.view-section {
+    display: none;
+}
+.view-section.active {
+    display: block;
+}
+
+/* ==========================================================================
+   2. THANH ĐIỀU HƯỚNG (NAV) - SỬ DỤNG FLEXBOX
+   ========================================================================== */
+nav {
+    background-color: #2c3e50;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav ul {
+    display: flex; /* Sắp xếp các mục menu nằm ngang hàng */
+    list-style: none;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+nav ul li a {
+    display: block;
+    color: #ecf0f1;
+    text-decoration: none;
+    padding: 15px 20px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: #34495e;
+}
+
+nav ul li a.active {
+    background-color: #04AA6D; /* Màu xanh lá cho Tab đang chọn */
+    color: white;
+}
+
+/* ==========================================================================
+   3. GIAO DIỆN KHÁCH HÀNG (CLIENT VIEW) & BỘ LỌC TÌM KIẾM
+   ========================================================================== */
+.filter-panel {
+    display: flex;
+    flex-wrap: wrap; /* Tự động xuống dòng nếu màn hình hẹp */
+    gap: 15px;
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    margin-bottom: 20px;
+    align-items: flex-end;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+    min-width: 150px; /* Độ rộng tối thiểu cho mỗi ô nhập */
+}
+
+.form-group label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form-group input, .form-group select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.filter-panel button {
+    padding: 9px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.filter-panel button:hover {
+    background-color: #2980b9;
+}
+
+/* SƠ ĐỒ PHÒNG - MẶC ĐỊNH MÁY TÍNH DÙNG GRID 5 CỘT */
+.hotel-map {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Chia đều thành 5 cột tương ứng 5 phòng/tầng */
+    gap: 20px;
+}
+
+.room-card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+    cursor: pointer;
+    border-top: 5px solid #ccc;
+    transition: transform 0.2s;
+}
+
+.room-card:hover {
+    transform: translateY(-5px); /* Hiệu ứng nổi lên khi di chuột vào */
+}
+
+/* Màu trạng thái phòng (Ternary logic) */
+.room-card.bg-green { border-top-color: #2ecc71; } /* Còn trống */
+.room-card.bg-red { border-top-color: #e74c3c; }   /* Đã đặt */
+
+.room-status {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 3px 10px;
+    font-size: 12px;
+    border-radius: 12px;
+    background: #eee;
+}
+
+/* ==========================================================================
+   4. GIAO DIỆN ADMIN (ADMIN DASHBOARD) - SỬ DỤNG CSS GRID
+   ========================================================================== */
+.admin-dashboard {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* Sidebar bên trái 280px, bảng bên phải chiếm hết phần còn lại */
+    gap: 25px;
+}
+
+.admin-sidebar {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: fit-content;
+}
+
+.admin-sidebar p {
+    font-size: 13px;
+    color: #7f8c8d;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.admin-content {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* BẢNG DỮ LIỆU ĐẠT CHUẨN */
+.table-responsive {
+    width: 100%;
+    overflow-x: auto; /* Tạo thanh cuộn ngang độc lập cho bảng nếu bị tràn */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table th, table td {
+    border: 1px solid #e0e0e0;
+    padding: 12px 15px;
+    text-align: left;
+}
+
+table th {
+    background-color: #f8f9fa;
+    color: #2c3e50;
+    font-weight: bold;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #fbfbfc; /* Tô màu xen kẽ các hàng cho dễ đọc */
+}
+
+/* ==========================================================================
+   5. POPUP ĐẶT PHÒNG (MODAL)
+   ========================================================================== */
+.modal {
+    display: none; /* Ẩn mặc định, JS sẽ bật lên thành 'flex' */
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 28px;
+    cursor: pointer;
+    color: #aaa;
+}
+
+.close-btn:hover { color: #333; }
+
+.modal-content button[type="submit"] {
+    width: 100%;
+    padding: 12px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE - CÁC BREAKPOINT ĐÁP ỨNG TIÊU CHÍ ĐỀ BÀI
+   ========================================================================== */
+
+/* BREAKPOINT 1: MÀN HÌNH TABLET (MAX-WIDTH: 1024PX) */
+@media (max-width: 1024px) {
+    .hotel-map {
+        grid-template-columns: repeat(3, 1fr); /* Sơ đồ phòng thu về 3 cột */
+    }
+
+    .admin-dashboard {
+        grid-template-columns: 1fr; /* Dashboard chuyển thành 1 cột đứng, sidebar nhảy lên trên */
+    }
+}
+
+/* BREAKPOINT 2: MÀN HÌNH MOBILE (MAX-WIDTH: 768PX) */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column; /* Menu chuyển thành hàng dọc */
+    }
+    
+    nav ul li { text-align: center; }
+
+    .filter-panel {
+        flex-direction: column; /* Bộ lọc xếp dọc */
+        align-items: stretch;
+    }
+
+    .filter-panel button { width: 100%; }
+
+    .hotel-map {
+        grid-template-columns: 1fr; /* Sơ đồ phòng xẹp hẳn về 1 cột dọc duy nhất */
+    }
+
+    table th, table td {
+        padding: 8px 10px; /* Thu nhỏ khoảng cách bảng trên mobile */
+        font-size: 13px;
+    }
+}
+.bg-highlight { background-color: #f1c40f !important; color: #2c3e50 !important; animation: pulse 1.5s infinite; }
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.02); } 100% { transform: scale(1); } }
