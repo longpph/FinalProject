@@ -55,43 +55,67 @@
         </section>
 
         <section id="view-admin" class="view-section">
-    <div class="admin-dashboard" style="display: flex; flex-direction: column; gap: 20px;">
+            <div class="admin-dashboard">
 
-        <aside class="admin-sidebar" style="width: 100%; box-sizing: border-box;">
-            <h3>Cấu hình hệ thống</h3>
-            <p>Quản lý và theo dõi hóa đơn khách đặt phòng thời gian thực.</p>
-            <div class="form-group" style="max-width: 300px;">
-                <label>Trạng thái khách sạn</label>
-                <input type="text" value="Đang hoạt động" disabled>
+                <aside class="admin-sidebar">
+                    <h3>Cấu hình hệ thống</h3>
+                    <p>Quản lý và theo dõi hóa đơn khách đặt phòng thời gian thực.</p>
+
+                    <div
+                        style="margin-bottom: 15px; background: #e8f4fd; padding: 12px; border-radius: 6px; border-left: 4px solid #3498db;">
+                        <p style="margin: 0; font-size: 13px; font-weight: bold; color: #2980b9;">💰 Tổng doanh thu hệ
+                            thống:</p>
+                        <span id="txt-total-revenue" style="font-size: 18px; font-weight: bold; color: #2c3e50;">0
+                            đ</span>
+                    </div>
+
+                    <div
+                        style="margin-bottom: 15px; background: #fdf2e9; padding: 12px; border-radius: 6px; border-left: 4px solid #e67e22;">
+                        <p style="margin: 0; font-size: 13px; font-weight: bold; color: #e67e22;">🔥 Số hóa đơn VIP
+                            (>2M):</p>
+                        <span id="txt-vip-count" style="font-size: 18px; font-weight: bold; color: #2c3e50;">0 hóa
+                            đơn</span>
+                    </div>
+
+                    <div class="form-group" style="max-width: 300px;">
+                        <label>Trạng thái khách sạn</label>
+                        <input type="text" value="Đang hoạt động" disabled>
+                    </div>
+                </aside>
+
+                <div class="admin-main-content-wrapper" style="display: flex; flex-direction: column; gap: 25px;">
+
+                    <div class="admin-content">
+                        <h4 style="margin-bottom: 15px; font-size: 16px; color: #333;">📊 Thống Kê Doanh Thu Theo Loại
+                            Phòng</h4>
+                        <canvas id="revenueChart" width="600" height="250"
+                            style="border: 1px solid #eef2f5; background: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02); width: 100%; max-width: 600px;"></canvas>
+                    </div>
+
+                    <main class="admin-content">
+                        <h2>Lịch Sử Đặt Phòng (Hóa Đơn)</h2>
+
+                        <div class="table-responsive">
+                            <table id="booking-table">
+                                <thead>
+                                    <tr>
+                                        <th>Mã Hóa Đơn</th>
+                                        <th onclick="toggleSortByPrice()" style="cursor: pointer; color: #3498db;">Mã
+                                            Phòng (Bấm để xếp giá ⇅)</th>
+                                        <th>Mã Khách Hàng</th>
+                                        <th>Ngày Đặt</th>
+                                        <th>Thao tác</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="booking-history-tbody">
+                                </tbody>
+                            </table>
+                        </div>
+                    </main>
+
+                </div>
             </div>
-        </aside>
-
-        <main class="admin-content" style="width: 100%;">
-            <h2>Lịch Sử Đặt Phòng (Hóa Đơn)</h2>
-
-            <div class="table-responsive">
-                <table id="booking-table">
-                    <thead>
-                        <tr>
-                            <th>Mã Hóa Đơn</th>
-                            <th onclick="toggleSortByPrice()" style="cursor: pointer; color: #3498db;">Mã Phòng (Bấm để xếp giá ⇅)</th>
-                            <th>Mã Khách Hàng</th>
-                            <th>Ngày Đặt</th>
-                        </tr>
-                    </thead>
-                    <tbody id="booking-history-tbody">
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="chart-container" style="margin-top: 40px; text-align: left;">
-                <h4 style="margin-bottom: 15px; font-size: 16px; color: #333;">📊 Thống Kê Doanh Thu Theo Loại Phòng</h4>
-                <canvas id="revenueChart" width="600" height="250" style="border: 1px solid #eef2f5; background: #fff; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"></canvas>
-            </div>
-        </main>
-
-    </div>
-</section>
+        </section>
     </div>
 
     <div class="modal" id="booking-modal">
@@ -114,14 +138,14 @@
                     <label for="cust-phone">Số điện thoại:</label>
                     <input type="text" id="cust-phone" required placeholder="0912345678">
                 </div>
-                
+
                 <div id="form-error-msg" style="color: red; margin: 10px 0; font-weight: bold;"></div>
-                
+
                 <button type="submit">Xác Nhận Đặt Phòng</button>
             </form>
         </div>
     </div>
-    <script src="FinalProject.js"></script>
+    <script type="module" src="js/app.js" defer></script>
 </body>
 
 </html>
